@@ -137,6 +137,7 @@ function dbfunc.checkdbFunc(tname, dbtab)
 	end
     tt.get = function(self, k)  --get field
 	    local field = self.db:get(k)
+	    assert(dbtab.detail[k], "db table not define the fieldname!")
 		if not field then 
 		    field = dbtab.detail[k]
 		end
@@ -144,6 +145,7 @@ function dbfunc.checkdbFunc(tname, dbtab)
 	end
 	tt.set = function(self,k, fv)   --set field
 	    local tov = fv
+	    assert(dbtab.detail[k], "db table not define the fieldname!")
 		if not fv then 
 		    tov = dbtab.detail[k] 
 		end
