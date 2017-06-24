@@ -45,11 +45,10 @@ function logoutUser(userId)
 	g_gameuser.m_userInfoTab[userId] = nil
 end
 
-function g_gameuser.onLoginUser(fd, userId)
-	if fdToUserIdTab[userId] then 
-		local toReplaceFd = userToFdTab[userId]
-		g_protocol.sendErrcode(toReplaceFd, "M_LOGIN_REPLACE") 
-	end
+function g_gameuser.onLoginUser(fd, userId, ischecklogin)
+	-- if fdToUserIdTab[userId] then 
+	-- 	local toReplaceFd = userToFdTab[userId]
+	-- end
 	userToFdTab[userId] = fd
 	fdToUserIdTab[fd] = userId
 
@@ -70,6 +69,7 @@ function g_gameuser.onLoginUser(fd, userId)
 	g_gameuser.onProtTimer(fd)
 
 	g_broadcast.enter(fd, G_BROADCAST_LOBBY_TAG) --进入大厅
+	return true
 end
 
 function g_gameuser.onRegisterUser(userName)

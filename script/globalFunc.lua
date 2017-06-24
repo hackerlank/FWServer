@@ -39,6 +39,8 @@ function g_protocol.RegProtFunc(mainId, assistId, regfunc)
 end
 function g_protocol.CheckRegFunc(fd, recvDataTab)
 	local mid, aid, datatab = FWAnalysisProtBuffer(recvDataTab)
+	assert(registertab[mid], "mainId=".. mid .. " have not been regist!")
+	assert(registertab[mid][aid], "mainId=".. mid .. " assistId=" .. aid .. " have not been regist!")
 	registertab[mid][aid](fd, datatab)
 end
 
