@@ -2,31 +2,31 @@
 local client = require("gamelogic.lobby.client")
 --查询所有房间
 local function QueryAllRoom(fd, protTab)
-	client.S2CQueryAllRoom(fd)
+	client.S2CQueryAllRoom(fd, protTab)
 end
 --查询属于自己的桌子
 local function QueryMyDesk(fd, protTab)
-	client.S2CQueryMyDesk(fd)
+	client.S2CQueryMyDesk(fd, protTab)
 end
 --创建桌子
 local function CreatDesk(fd, protTab)
-	client.S2CCreatDesk(fd)
+	client.S2CCreatDesk(fd, protTab)
 end
 --请求解散桌子
 local function ReqJieSanDesk(fd, protTab)
-	client.S2CReqJieSanDesk(fd)
+	client.S2CReqJieSanDesk(fd, protTab)
 end
 --请求进入桌子
 local function ReqEnterDesk(fd, protTab)
-	client.S2CReqEnterDesk(fd)
+	client.S2CReqEnterDesk(fd, protTab)
 end
 --请求离开桌子
 local function ReqLeaveDesk(fd, protTab)
-	client.S2CReqLeaveDesk(fd)
+	client.S2CReqLeaveDesk(fd, protTab)
 end
 --发送给桌子内部消息
 local function SpeakWithRoom(fd, protTab)
-	client.S2CSpeakWithRoom(fd)
+	client.S2CSpeakWithRoom(fd, protTab)
 end
 --监听到从桌子发到大厅来的消息,一般为本地房间服务发到大厅，若大厅不在此，则转发
 function g_gamelobby.notifyRoomData(gameId, roomId, userId, prottab)
