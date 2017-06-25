@@ -3,7 +3,8 @@ require "skynet.manager"
 local redis  = require "redis"
 --local dbcache = require "services.db.dbcache"
 local dbtable = require "config.dbtable"
-local MessagePack = require "common.msgpack.MessagePack"
+--local MessagePack = require "common.msgpack.MessagePack"
+local cjson = require "cjson"
 local lstring_gmatch = string.gmatch
 local lconntab = {} 
 local CMD = {}
@@ -39,7 +40,7 @@ end
 local function lpackrecord(tname, recordtab, tokey)
 	local prikey = dbtable[tname].pkey
 	local detailTab = dbtable[tname].detail
-	local fstr = MessagePack.pack(recordtab)
+	local fstr = cjson.encode(recordtab)--MessagePack.pack(recordtab)
     local retkeyd = tokey
     if not tokey then retkeyd = recordtab[prikey] end
     print("-----lpackrecord-----", tname, tokey, fstr)
@@ -49,7 +50,7 @@ local function lunpackrecord(tname, recordstr)
     print("---lunpackrecord-------", tname, recordstr)
 	local detailTab = dbtable[tname].detail
 
-	local rtab = MessagePack.unpack(recordstr)
+	local rtab = cjson.decode(recordstr)--MessagePack.unpack(recordstr)
 	for _,fname in ipairs(detailTab) do
         if not rtab[fname] then rtab[fname] = detailTab[fname] end
 	end
