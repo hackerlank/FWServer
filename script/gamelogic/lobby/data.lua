@@ -11,35 +11,22 @@ local data = {}
 function data.init()
 	
 end
-function data.addRoomInfo(roominfo)	
-	local roomid = roominfo:getRoomID()
-	local gameid = roominfo:getGameID()
-	local userTab,userCount = roominfo:getUserIdTab()
-	for i=1,userCount do
-		local userid = userTab[i]
-		if userid then
-			if not g_gamelobby.m_allUserRoom[userid] then
-				g_gamelobby.m_allUserRoom[userid] = {}
-			end
-			g_gamelobby.m_allUserRoom[userid][roomid] = roominfo
-		end
+function data.addRoomInfo(gameid, roomid)	
+	if not g_gamelobby.m_allGameRoom[gameid] then 
+		g_gamelobby.m_allGameRoom[gameid] = {}
 	end
 	g_gamelobby.m_allGameRoom[gameid][roomid] = roominfo
 end
-function data.rmRoomInfo(gameid, roomid)
+function data.addUserRoomInfo(userid, roomid, roominfo)
+	if not g_gamelobby.m_allUserRoom[userid] then
+		g_gamelobby.m_allUserRoom[userid] = {}
+	end
+	g_gamelobby.m_allUserRoom[userid][roomid] = roominfo
+end
+function data.rmRoomInfo(userid, gameid, roomid)
 	local toinfo = g_gamelobby.m_allGameRoom[gameid][roomid]
 	g_gamelobby.m_allGameRoom[gameid][roomid] = nil
-	local userTab,userCount = roominfo:getUserIdTab()
-	for i=1,userCount do
-		local userid = userTab[i]
-		if userid then
-			g_gamelobby.m_allUserRoom[userid][roomid] = nil
-		end
-	end
-	local ownerUserId = roominfo:getOwnerUserID()
-	if ownerUserId then
-		g_gamelobby.m_allUserRoom[ownerUserId][roomid] = nil
-	end
+	g_gamelobby.m_allUserRoom[userid][roomid] = nil
 	return toinfo
 end
 function data.rmAllRoomInfo()

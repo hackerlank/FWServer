@@ -85,6 +85,7 @@ function client.S2CCreatDesk(fd, protTab)
 	roominfo:setIsPlaying(false)
 	roominfo:setRoomPwd(protTab.pwd or "")
 
+	REQlobbydata.addUserRoomInfo(userId, roomid, roominfo)
 	roominfo:SaveToDataBase(dbroom)
 
 	local rpTab = {}
