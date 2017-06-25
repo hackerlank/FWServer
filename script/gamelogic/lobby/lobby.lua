@@ -17,7 +17,7 @@ function g_gamelobby.newRoom(ownerUserId, gameId, roomId)
 	rinfo:setSrvHandler(handler)
 	REQlobbydata.addRoomInfo(gameId, roomId, rinfo)
 	local srvpath = rinfo:getScriptSrvPath()
-	skynet.send(handler, "lua", "open", lobbyhandler, srvpath, datatab)
+	skynet.send(handler, "lua", "open", "noret", lobbyhandler, srvpath, datatab)
 	return rinfo
 end
 
@@ -25,14 +25,14 @@ function g_gamelobby.sendDataRoom(gameid, roomid, eventtype, ...)
 	local rinfotab = REQlobbydata.getRoomInfoByUserId(gameid, roomid)
 	for _,rinfo in ipairs(rinfotab) do
 		if rinfo:getSrvHandler() then
-			skynet.send(rinfo:getSrvHandler(), "lua", eventtype, ...)
+			skynet.send(rinfo:getSrvHandler(), "lua", eventtype, "noret", ...)
 		end
 	end
 end
 function g_gamelobby.sendGameRoom(gameId, datatab) --发送数据到所有gameName房间
 	local function callroomfunc(rinfo, ...)
 		if rinfo:getSrvHandler() then
-			skynet.send(rinfo:getSrvHandler(), "lua", "data", ...)
+			skynet.send(rinfo:getSrvHandler(), "lua", "data", "noret", ...)
 		end
 	end
 	REQlobbydata.allGameRoomCallFunc(gameId, callroomfunc, datatab)
@@ -41,7 +41,7 @@ end
 function g_gamelobby.closeAllRoom(datatab) --移除所有房间
 	local function callroomfunc(rinfo, ...)
 		if rinfo:getSrvHandler() then
-			skynet.send(rinfo:getSrvHandler(), "lua", "close", ...)
+			skynet.send(rinfo:getSrvHandler(), "lua", "close", "noret", ...)
 		end
 	end
 	REQlobbydata.allGameRoomCallFunc(nil, callroomfunc, datatab)
@@ -51,7 +51,7 @@ function g_gamelobby.closeRoom(gameid, roomid)  --移除对应的房间
 	local rinfotab = REQlobbydata.getRoomInfoByRoomId(gameid, roomid)
 	for _,rinfo in ipairs(rinfotab) do
 		if rinfo:getSrvHandler() then
-			skynet.call(rinfo:getSrvHandler(), "lua", "close", datatab)	
+			skynet.send(rinfo:getSrvHandler(), "lua", "close", "noret", datatab)	
 		end
 	end
 	REQlobbydata.rmRoomInfo(gameid, roomid)
