@@ -5,15 +5,17 @@ local lobbyhandler
 local gameId
 local roomId
 local roomhandler
+local ownerUserId
 
 function sendToLobby(userId, prottab) --toUserId不为nil，则发送给对应的玩家
 	skynet.send(lobbyhandler, "lua", "notifyRoomData", gameId, roomId, userId, prottab)
 end
 
-function SOCKET.open(handler, srvpath, datatab) --new service and open
+function SOCKET.open(handler, srvpath, townerUserId, tgameId, troomId)) --new service and open
 	lobbyhandler = handler
-	gameId = datatab.gameId
-	roomId = datatab.roomId
+	gameId = tgameId
+	roomId = troomId
+	ownerUserId = townerUserId
 	roomhandler = require(srvpath).new(sendToLobby)
 	assert(roomhandler, "")
 end

@@ -17,7 +17,7 @@ function g_gamelobby.newRoom(ownerUserId, gameId, roomId)
 	rinfo:setSrvHandler(handler)
 	REQlobbydata.addRoomInfo(gameId, roomId, rinfo)
 	local srvpath = rinfo:getScriptSrvPath()
-	skynet.send(handler, "lua", "open", "noret", lobbyhandler, srvpath, datatab)
+	skynet.send(handler, "lua", "open", "noret", lobbyhandler, srvpath, ownerUserId, gameId, roomId))
 	return rinfo
 end
 
