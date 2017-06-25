@@ -40,9 +40,9 @@ local function lpackrecord(tname, recordtab, tokey)
 	local prikey = dbtable[tname].pkey
 	local detailTab = dbtable[tname].detail
 	local fstr = MessagePack.pack(recordtab)
-    skynet.error("-----lpackrecord-----", tname, tokey, fstr)
     local retkeyd = tokey
     if not tokey then retkeyd = recordtab[prikey] end
+    print("-----lpackrecord-----", tname, tokey, fstr)
 	return fstr, retkeyd
 end
 local function lunpackrecord(tname, recordstr)

@@ -49,11 +49,14 @@ function g_database.destroy()
     skynet.error("===database:destroy:end===")
 end
 --创建一条房间记录
-function g_database.createRoomRecord()
+function g_database.createRoomRecord(userId)
 	while true do
 		local toId = math.random(100000, 999999)
 		if not FGDBroom.exist(toId) then
- 			return FGDBroom.insert(toId), toId
+			local toHandle = FGDBroom.insert(toId)
+			toHandle:set("ownUserId", userId)
+			toHandle:update()
+ 			return toHandle, toId
 		end
 	end
 end

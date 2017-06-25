@@ -71,7 +71,7 @@ function client.S2CCreatDesk(fd, protTab)
 		return g_protocol.sendErrcode(fd, "M_LOBBY_CREATEROOM_CONFIG_ERR") --配置错误
 	end
 	--第三步，已经校验完数据，开始创建数据库记录
-	local dbroom, roomid = g_database.createRoomRecord()
+	local dbroom, roomid = g_database.createRoomRecord(userId)
 	if not dbroom then
 		return g_protocol.sendErrcode(fd, "M_LOBBY_CREATEROOM_TO_LIMITED") --房间数量上限
 	end

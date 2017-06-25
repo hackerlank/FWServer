@@ -60,12 +60,12 @@ local function dispatch_queue(obj)
 	local fd, msg, sz = msgpack.pop(filterqueue)
 	if fd then
 		local rs = {}
-		local r = dispatch_msg(obj, fd, msg, sz)
+		local r = obj:execute_msg(fd, msg, sz)
 		if r then
 			rs[#rs+1] = r
 		end
 		for fd, msg, sz in msgpack.pop, filterqueue do
-			r = dispatch_msg(obj, fd, msg, sz)
+			r = obj:execute_msg(fd, msg, sz)
 			if r then
 				rs[#rs+1] = r
 			end
