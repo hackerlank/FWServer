@@ -9,6 +9,7 @@ ALogin_S2CRegAccount = 201
 ALogin_S2CLoginInfo = 202   --登录成功时候返回登陆数据
 ALogin_S2CReplaceLogin = 203--被替换下线
 ALogin_S2CReDoLogin = 204   --请重新登陆
+ALogin_S2CCheckSignIN = 205  --断线重连时候发送账号密码验证
 -------------------------------------------------------------
 -------------------------------------------------------------
 local C2SSignIN_DATAB = {

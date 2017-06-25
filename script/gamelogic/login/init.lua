@@ -34,6 +34,8 @@ local function onCheckLogin(fd, protTab)
     if not isSuccess then
 		g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CReDoLogin)
     end
+	g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CCheckSignIN)
+    
 end
 
 local function onRegister(fd, protTab)

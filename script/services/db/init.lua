@@ -53,7 +53,7 @@ function g_database.createRoomRecord()
 	while true do
 		local toId = math.random(100000, 999999)
 		if not FGDBroom.exist(toId) then
- 			return FGDBroom.new(toId), toId
+ 			return FGDBroom.insert(toId), toId
 		end
 	end
 end
