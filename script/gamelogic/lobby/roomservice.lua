@@ -11,7 +11,7 @@ function sendToLobby(userId, prottab) --toUserId不为nil，则发送给对应�
 	skynet.send(lobbyhandler, "lua", "notifyRoomData", gameId, roomId, userId, prottab)
 end
 
-function SOCKET.open(handler, srvpath, townerUserId, tgameId, troomId)) --new service and open
+function SOCKET.open(handler, srvpath, townerUserId, tgameId, troomId) --new service and open
 	lobbyhandler = handler
 	gameId = tgameId
 	roomId = troomId

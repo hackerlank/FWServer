@@ -92,7 +92,7 @@ function client.S2CCreatDesk(fd, protTab)
 	rpTab.roomOwer = roominfo:getOwnerUserID() 	--房主id
     rpTab.roomId = roominfo:getRoomID()	    --桌子号
     rpTab.gameId = roominfo:getGameID()
-    rpTab.config = roominfo:getGameConfig()
+    rpTab.config = roominfo:getRoomConfig()
 	g_protocol.sendProt(fd, MID_Protocol_Lobby, ALobby_S2CCreatDesk, rpTab)
 end
 --请求解散桌子,只有房主能解散,在当局游戏结束或者局数到了才能解散
