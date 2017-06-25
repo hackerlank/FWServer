@@ -1,4 +1,4 @@
-
+require("gamelogic.lobby.lobby")
 local client = require("gamelogic.lobby.client")
 --查询所有房间
 local function QueryAllRoom(fd, protTab)

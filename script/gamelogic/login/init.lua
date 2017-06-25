@@ -59,7 +59,7 @@ local function onRegister(fd, protTab)
 		db:update()
 	end
 	local rpTab = {}
-	rpTab.isSucces = regFlag
+	rpTab.isSuccess = regFlag
 	g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CRegAccount, rpTab)
 end
 
