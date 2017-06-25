@@ -92,6 +92,7 @@ function dbfunc.new(tname, key, binsert)
     return instance
 end
 function dbfunc.isExist(tname, reckey)
+	print("======dbfunc.isExist====1====", tname, reckey or "nil")
 	if not tname or not reckey then return end
 	local rectab = dbcache.getRecord(tname, reckey)
     if rectab then return true end 
@@ -101,8 +102,10 @@ function dbfunc.isExist(tname, reckey)
     	for _, tab in ipairs(rtab) do
 			dbcache.setRecord(tname, nil, tab, true)
     	end
+	print("======dbfunc.isExist====2====")
         return true
     end
+	print("======dbfunc.isExist====3====")
 end
 function dbfunc.updateTab(tname, reckey, bRmCache)
 	local redis = lredishandler()
