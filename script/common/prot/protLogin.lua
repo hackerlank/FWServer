@@ -3,6 +3,7 @@
 ALogin_C2SSignIN = 10       --正常流程登陆
 ALogin_C2SRegAccount = 11   --正常注册
 ALogin_C2SCheckSignIN = 12  --断线重连时候发送账号密码验证
+ALogin_C2SSignOut = 13      --主动登出
 
 ALogin_S2CSignIN = 200
 ALogin_S2CRegAccount = 201
