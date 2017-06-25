@@ -37,7 +37,11 @@ local function onCheckLogin(fd, protTab)
 	g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CCheckSignIN)
     
 end
-
+--主动登出
+local function onLoginOut(fd, protTab)
+	print("------onLoginOut--------", fd)
+	g_gameuser.onLogoutUser(fd)
+end 
 local function onRegister(fd, protTab)
 	if not protTab.accName or not protTab.accPwd then 
 		return g_protocol.sendErrcode(fd, "SYS_UNKNOW_ERROR") --系统错误
@@ -61,5 +65,6 @@ end
 
 
 g_protocol.RegProtFunc(MID_Protocol_Login, ALogin_C2SSignIN, onLogin)
+g_protocol.RegProtFunc(MID_Protocol_Login, ALogin_C2SSignOut, onLoginOut)
 g_protocol.RegProtFunc(MID_Protocol_Login, ALogin_C2SRegAccount, onRegister)
 g_protocol.RegProtFunc(MID_Protocol_Login, ALogin_C2SCheckSignIN, onCheckLogin)
