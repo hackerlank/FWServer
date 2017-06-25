@@ -26,7 +26,7 @@ function roominfo:ctor(gameid, roomid)
 	self._srvHandler = nil	--服务句柄
 	self._scriptSrvPath = "roomlogic/" .. gamelist[self._gameID].gameName .. "/init"
 end
-function roominfo:SaveToDataBase(dbhandle)
+function roominfo:SaveToDataBase(dbroom)
 	dbroom:set("gameId", self._gameID)
 	dbroom:set("maxPlayer", self._roomID)
 	dbroom:set("openNumPlayer", self.maxPlayer)
@@ -37,7 +37,7 @@ function roominfo:SaveToDataBase(dbhandle)
 	dbroom:set("ownUserId", self._ownerUserID)
 	dbroom:set("roomPwd", self._roomPwd or "")
 	dbroom:set("playertab", self._userTab)
-	dbroom:set("confg", self:getRoomConfig())
+	dbroom:set("config", self:getRoomConfig())
 	dbroom:update()
 end
 function roominfo:getRoomID()

@@ -11,7 +11,7 @@ end
 --通过游戏名称新建一个房间
 --ownerUserId为房主用户id,gameId为游戏id, datatab为附带数据
 function g_gamelobby.newRoom(ownerUserId, gameId, roomId) 
-	local handler = skynet.newservice("gamelogic.lobby.roomservice")
+	local handler = skynet.newservice("gamelogic/lobby/roomservice")
 
 	local rinfo = REQroominfo.new(gameId, roomId)
 	rinfo:setSrvHandler(handler)
