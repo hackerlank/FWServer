@@ -1,4 +1,5 @@
 local skynet = require "skynet"
+local util = require "util.function"
 
 if not g_protocol.m_RegProtTab then g_protocol.m_RegProtTab = {} end
 if not g_protocol.m_RegClusterTab then g_protocol.m_RegClusterTab = {} end
@@ -17,6 +18,7 @@ function g_protocol.destroy()--关闭网络接口
 end
 function g_protocol.sendProt(fd, mainId, assistId, dataTab)
 	local protTab = FWCreateProtBuffer(mainId, assistId, dataTab)
+    util.dump(protTab)
 	if protTab then
 		if g_protocol.m_sendfunc then g_protocol.m_sendfunc(fd, protTab) end
 	else
