@@ -21,18 +21,18 @@ end
 --断线重连，检测登陆，若出问题则让客户端重新走登陆流程，不发其他错误码，否则将数据重发一遍
 local function onCheckLogin(fd, protTab) 
 	if not protTab.loginName or not protTab.loginPwd then 
-		g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CReDoLogin)
+		return g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CReDoLogin)
 	end
 	local db = FGDBaccount.query(protTab.loginName)
     if not db or db:get("accountPwd")~=protTab.loginPwd then
-		g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CReDoLogin)
+		return g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CReDoLogin)
     end
 	--其他协议
 	local userId = db:get("userId")
 	print("------onCheckLogin--------", fd, userId)
     local isSuccess = g_gameuser.onLoginUser(fd, userId, true)
     if not isSuccess then
-		g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CReDoLogin)
+		return g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CReDoLogin)
     end
 	g_protocol.sendProt(fd, MID_Protocol_Login, ALogin_S2CCheckSignIN)
     
