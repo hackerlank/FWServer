@@ -30,7 +30,7 @@ function client.S2CCreatDesk(fd, protTab)
 	end
 	local gameConfigInfo = REQgamelist[protTab.gameId]
 	--[[
-	protTab.confg = {
+	protTab.config = {
 		jushu=1, --局数
 		maxPlayer = 1, --最大玩家
 		baseScore = 0,  --基本分数，nil or 0
@@ -42,12 +42,13 @@ function client.S2CCreatDesk(fd, protTab)
 	local maxPlayer
 	local bScore 
 	local bBeiLv
+	local protConfig = protTab.config
 	--第一步，查看客户端有木有发过配置过来，否则，使用内部最低档次配置数据
-	if protTab.confg then
-		jushuNum = protTab.confg.jushu
-		maxPlayer = protTab.confg.maxPlayer
-		bScore = protTab.confg.baseScore
-		bBeiLv = protTab.confg.baseBeiLv
+	if protConfig then
+		jushuNum = protConfig.jushu
+		maxPlayer = protConfig.maxPlayer
+		bScore = protConfig.baseScore
+		bBeiLv = protConfig.baseBeiLv
 	end
 	if not jushuNum then
 		local minJuShu
@@ -75,9 +76,13 @@ function client.S2CCreatDesk(fd, protTab)
 	if not dbroom then
 		return g_protocol.sendErrcode(fd, "M_LOBBY_CREATEROOM_TO_LIMITED") --房间数量上限
 	end
+	protConfig.jushu = jushuNum
+	protConfig.maxPlayer = maxPlayer
+	protConfig.baseScore = bScore
+	protConfig.baseBeiLv = bBeiLv
 	--最后创建房间，保存数据
 	local roominfo = g_gamelobby.newRoom(userId, protTab.gameId, roomid)
-	roominfo:setRoomConfig(protTab.confg or {})
+	roominfo:setRoomConfig(protConfig or {})
 	roominfo:setMaxJuShu(jushuNum)
 	roominfo:setOwnerUserID(userId)
 	roominfo:setBaseScore(bScore)
